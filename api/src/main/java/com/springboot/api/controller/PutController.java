@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
@@ -35,8 +37,14 @@ public class PutController {
   }
 
   @PutMapping("/member2")
-  public String postMemberDto2(@RequestBody MemberDto memberDto) {
+  public MemberDto postMemberDto2(@RequestBody MemberDto memberDto) {
     return memberDto;
+  }
+  @PutMapping("/member3")
+  public ResponseEntity<MemberDto> postMemberDto3 (@RequestBody MemberDto memberDto) {
+    return ResponseEntity
+      .status(HttpStatus.ACCEPTED)
+      .body(memberDto);
   }
 
 }
