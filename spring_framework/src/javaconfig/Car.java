@@ -1,0 +1,23 @@
+package javaconfig;
+
+public class Car {
+  private String name;
+
+  public Car() {
+    super();
+  }
+
+  public Car(String name) {
+    super();
+    this.name = name;
+  }
+
+  public String getName() {
+    return this.name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+}
