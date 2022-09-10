@@ -2,6 +2,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Launch TestClient",
+      "request": "launch",
+      "mainClass": "xml.TestClient",
+      "projectName": ""
+    },
+    {
+      "type": "java",
       "name": "Spring Boot-MineApplication<mine>",
       "request": "launch",
       "cwd": "${workspaceFolder}",

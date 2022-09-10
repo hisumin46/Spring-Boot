@@ -16,7 +16,7 @@ import com.springboot.jpa.data.repository.ProductRepository;
 // 빈으로 등록된 객체는 다른 클래스가 인터페이스를 가지고 의존성 주입받을 때 이 구현체를 찾음
 public class ProductDAOImpl implements ProductDAO{ 
   // 리포지토리 정의
-  private final ProductRepository productRepository;
+  private ProductRepository productRepository;
 
   // 생성자를 통해 의존성 주입
   @Autowired
@@ -71,5 +71,4 @@ public class ProductDAOImpl implements ProductDAO{
       throw new ELException();
     }
   }
-  
 }

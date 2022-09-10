@@ -1,5 +1,8 @@
 package javaconfig;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
 @Component // 객체로 올림
 public class CarConfig { // 미리 객체를 만듦
 

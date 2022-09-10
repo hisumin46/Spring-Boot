@@ -26,6 +26,6 @@ public class Product {
   @Column(nullable = false)
   private Integer stock;
 
-  private LocalDateTime createAt;
-  private LocalDateTime updataAt;
+  private LocalDateTime createdAt;
+  private LocalDateTime updatedAt;
 }
