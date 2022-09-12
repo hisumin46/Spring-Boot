@@ -1,7 +1,11 @@
 package xml;
 
+/**
+ * 자동차 이름을 관리하는 클래스
+ * @author 김수민
+ */
 public class Car {
-  private String name;
+  private String name; // 자동차 이름
 
   public Car() {
     super();

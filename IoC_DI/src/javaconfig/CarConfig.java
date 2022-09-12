@@ -12,7 +12,7 @@ public class CarConfig { // 미리 객체를 만듦
     return make;
   }
   
-  @Bean // 이름이 없다면 메소드명 
+  @Bean(name = "kia") // 이름이 없다면 메소드명 
   public CarMaker KiaCar() {
     CarMaker make = new KiaMaker();
     return make;

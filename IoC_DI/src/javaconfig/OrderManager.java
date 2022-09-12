@@ -22,10 +22,4 @@ public class OrderManager {
     Car car = maker.sell(money);
     System.out.println("판매상 : (인수)" + car.getName());
   }
-
-
-
-
-
-  
 }

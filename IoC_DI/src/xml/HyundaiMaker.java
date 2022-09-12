@@ -1,6 +1,8 @@
 package xml;
 
 public class HyundaiMaker implements CarMaker{
+  // 돈을 받으면 자동차를 넘겨주는 함수
+  @Override
   public Car sell(Money money) {
     System.out.println("현대차 <입급>" + money.getAmout());
 
