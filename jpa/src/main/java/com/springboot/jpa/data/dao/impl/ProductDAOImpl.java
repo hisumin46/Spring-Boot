@@ -48,8 +48,8 @@ public class ProductDAOImpl implements ProductDAO{
       Product product = selectedProduct.get();
 
       // 값을 변경 후
-      product.setName(name);
-      product.setUpdatedAt(LocalDateTime.now());
+      // product.setName(name);
+      // product.setUpdatedAt(LocalDateTime.now());
 
       // save 하면 Dirty Check 
       updatedProduct = productRepository.save(product);

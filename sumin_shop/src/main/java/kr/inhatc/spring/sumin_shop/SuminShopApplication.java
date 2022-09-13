@@ -1,4 +1,4 @@
-package kr.intatc.spring.sumin_shop;
+package kr.inhatc.spring.sumin_shop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

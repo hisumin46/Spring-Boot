@@ -1,4 +1,4 @@
-package kr.intatc.spring.sumin_shop;
+package kr.inhatc.spring.sumin_shop;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
