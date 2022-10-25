@@ -26,6 +26,16 @@
       "projectName": "api",
       "args": "",
       "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-SuminShopApplication<sumin_shop>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "kr.inhatc.spring.sumin_shop.SuminShopApplication",
+      "projectName": "sumin_shop",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
     }
   ]
 }
