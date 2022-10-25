@@ -8,7 +8,7 @@ import lombok.Setter;
 public class ItemDto {
   private Long  id; // 아이디 - 상품 코드
 
-  private String itemName; // 상품명
+  private String itemNm; // 상품명
 
   private int price; // 가격
 
@@ -19,5 +19,5 @@ public class ItemDto {
   // @Temporal 로 하지만! localdatatime은 알아서 넣어줌
   private LocalDateTime regTime; // 등록한 시간
 
-  private LocalDateTime updTime; // 수정 시간
+  private LocalDateTime UpdateTime; // 수정 시간
 }

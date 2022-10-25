@@ -14,6 +14,9 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import kr.inhatc.spring.sumin_shop.item.constant.ItemSellStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,7 +25,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * 상품을 관리하는 클래스
+ * 상품을 관리하는 엔티티 클래스
  */
 // 일반적으로 클래스와 필드는 넣는것이 기본
 @Entity
@@ -33,13 +36,14 @@ import lombok.ToString;
 @AllArgsConstructor // 모든 생성자 - 오류가 뜬다면 필드가 없어서 그렇다
 @ToString // 문자열 출력 가능
 public class Item {
+  
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY) 
+  @GeneratedValue(strategy = GenerationType.IDENTITY) // 자동 증가
   @Column(name = "item_id") // 컬럼명을 테이블의 필드값으로 하기
   private Long  id; // 아이디 - 상품 코드
 
   @Column(nullable = false, length = 50) // 컬럼 상세 정보세팅
-  private String itemName; // 상품명
+  private String itemNm; // 상품명
 
   @Column(nullable = false)
   private int price; // 가격
@@ -52,12 +56,17 @@ public class Item {
   private String itemDetail; // 상품 상세 설명
 
   // 불린 값이 아닌 만든 상수값으로 관리
-  @Enumerated(EnumType.STRING) // 열거형을 String 타입으로 다루기 sell이나 soldout 인지 확인 같냐 비교할때 숫자인지 글자인지
+  // 열거형을 String 타입으로 다루기 sell이나 soldout 인지 확인 같냐 비교할때 숫자인지 글자인지
+    // EnumType.ORDINAL : enum 순서 값을 DB에 저장
+  // EnumType.STRING : enum 이름을 DB에 저장
+  @Enumerated(EnumType.STRING) 
   private ItemSellStatus itemSellStatus; // 상품 판매 상태
 
+  @CreationTimestamp
   // @Temporal 로 하지만! localdatatime은 알아서 넣어줌
   private LocalDateTime regTime; // 등록한 시간
 
-  private LocalDateTime updTime; // 수정 시간
+  @UpdateTimestamp
+  private LocalDateTime UpdateTime; // 수정 시간
 
 }
