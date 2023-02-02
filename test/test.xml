@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="build" name="osjProject">
+	<!-- 설정 -->
+    <property environment="env"/>
+	<property name="WebContent.SVN" value="${basedir}\3dspace"/>
+	
+	<property name="CAS_HOME" value="C:\R2022x\3DSpace\win_b64\code\tomee"/>
+	<property name="NOCAS_HOME" value="C:\R2022x\3DSpace\win_b64\code\tomeeNoCAS"/>
+	
+	<property name="build.CAShome" value="${CAS_HOME}\webapps"/>
+	<property name="build.NoCAShome" value="${NOCAS_HOME}\webapps"/>
+
+	<property name="WebContent.CAS" value="${build.CAShome}\3dspace"/>
+	<property name="WebContent.NOCAS" value="${build.NoCAShome}\internal"/>
+	
+	<!-- classpath -->
+	<path id="classpath.CAS">
+		<fileset dir="${WebContent.CAS}\WEB-INF\lib">
+			<include name="*.jar"/>
+		</fileset>
+	
+		<fileset dir="C:\R2022x\3DSpace\win_b64\code\tomee\lib">
+			<include name="*.jar"/>
+		</fileset>
+		
+		<fileset dir="C:\Program Files\AdoptOpenJDK\jdk-11.0.6.10-openj9\lib">
+			<include name="*.jar"/>
+		</fileset>
+		
+		<fileset dir="C:\osjProject\apache-tomee-plus-8.0.6\lib">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+	
+	<path id="classpath.NOCAS">
+		<fileset dir="${WebContent.NOCAS}\WEB-INF\lib">
+			<include name="*.jar"/>
+		</fileset>
+
+		<fileset dir="C:\R2022x\3DSpace\win_b64\code\tomeeNoCAS\lib">
+			<include name="*.jar"/>
+		</fileset>
+
+		<fileset dir="C:\Program Files\AdoptOpenJDK\jdk-11.0.6.10-openj9\lib">
+			<include name="*.jar"/>
+		</fileset>
+		
+		<fileset dir="C:\osjProject\apache-tomee-plus-8.0.6\lib">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+	
+	<!-- 실행 -->
+	<target name="build">
+		<echo message="build"/>
+		<parallel>
+			<antcall target="shutdown.CAS"/>
+			<antcall target="shutdown.NOCAS"/>
+			<antcall target="build.CAS"/>
+			<antcall target="build.NOCAS"/>
+			<!--antcall target="startup.CAS"/-->
+			<!--antcall target="startup.NOCAS"/-->
+		</parallel>
+	</target>
+	
+	<target name="build.CAS">
+		<echo message="build.CAS"/>
+		<antcall target="initializedir.CAS"/>
+		<antcall target="copyfiles.CAS"/>
+		<antcall target="compile.CAS"/>
+	</target>
+	
+	<target name="build.NOCAS">
+		<antcall target="initializedir.NOCAS"/>
+		<antcall target="copyfiles.NOCAS"/>
+		<antcall target="compile.NOCAS"/>
+		<!--<antcall target="deletejar.NOCAS"/>-->
+	</target>
+	
+	<target name="initializedir.CAS">
+		<delete dir="${WebContent.CAS}"/>
+		<sleep seconds="20"/>
+		<mkdir dir="${WebContent.CAS}"/>
+        <mkdir dir="${WebContent.CAS}\WEB-INF\classes"/>
+	</target>
+	
+	<target name="initializedir.NOCAS">
+		<delete dir="${WebContent.NOCAS}" />
+		<sleep seconds="20" />
+		<mkdir dir="${WebContent.NOCAS}" />
+        <mkdir dir="${WebContent.NOCAS}\WEB-INF\classes" />
+	</target>
+	
+	<!-- 파일복사 -->
+	<target name="copyfiles.CAS">
+		<echo message="copyfiles.CAS"/>
+		<copy todir="${WebContent.CAS}" overwrite="yes">
+			<fileset dir="${WebContent.SVN}" />
+		</copy>
+		<copy todir="${WebContent.CAS}\WEB-INF\classes" overwrite="yes">
+			<fileset dir="${basedir}\properties" />
+		</copy>
+		<!--<copy file="${WebContent.CAS}\WEB-INF\web.xml_CAS" tofile="${WebContent.CAS}\WEB-INF\web.xml" overwrite="true"/>-->
+		<!--<copy file="${WebContent.CAS}\WEB-INF\classes\emxSystem.properties_CAS" tofile="${WebContent.CAS}\WEB-INF\classes\emxSystem.properties" overwrite="true"/>-->
+	</target>
+	
+	<target name="copyfiles.NOCAS">
+		<copy todir="${WebContent.NOCAS}" overwrite="yes">
+			<fileset dir="${WebContent.SVN}" />
+		</copy>
+		<copy todir="${WebContent.NOCAS}\WEB-INF\classes" overwrite="yes">
+			<fileset dir="${basedir}\properties" />
+		</copy>
+	</target>
+	
+	<!-- compile -->
+	<target name="compile.CAS">
+		<echo message="compile.CAS"/>
+		<javac destdir="${WebContent.CAS}\WEB-INF\classes" srcdir="${basedir}\src" includeAntRuntime="false" encoding="utf-8">
+			<classpath refid="classpath.CAS"/>
+		</javac>
+		
+		<javac destdir="${WebContent.CAS}\WEB-INF\classes" srcdir="${basedir}\jpo" includeAntRuntime="false" encoding="utf-8">
+			<classpath refid="classpath.CAS"/>
+		</javac>
+	</target>
+	
+	<target name="compile.NOCAS">
+		<javac destdir="${WebContent.NOCAS}\WEB-INF\classes" srcdir="${basedir}\src" includeAntRuntime="false" encoding="utf-8">
+			<classpath refid="classpath.NOCAS"/>
+		</javac>
+		<javac destdir="${WebContent.NOCAS}\WEB-INF\classes" srcdir="${basedir}\jpo" includeAntRuntime="false" encoding="utf-8">
+			<classpath refid="classpath.NOCAS"/>
+		</javac>
+	</target>
+	
+	<!-- tomcat 재실행 -->
+	<target name="shutdown.CAS" description="3DSpace_CAS stop...">
+		<echo message="shutdown.CAS"/>
+ 		<exec executable="cmd.exe" dir="C:\R2022x\3DSpace\win_b64\code\tomee\bin">
+			<arg line="/c shutdown.bat"/>
+        </exec>
+	</target>
+	
+	<target name="shutdown.NOCAS" description="3DSpace_CAS stop...">
+		<exec executable="cmd.exe" dir="C:\R2022x\3DSpace\win_b64\code\tomeeNoCAS\bin">
+			<arg line="/c shutdown.bat"/>
+		</exec>
+	</target>
+	
+	<target name="startup.CAS" description="3DSpace_CAS startup...">
+		<echo message="startup.CAS"/>
+		<exec executable="cmd.exe">
+			<arg value="-c"/>
+			<arg value="C:\R2022x\3DSpace\win_b64\code\tomee\bin\startup.bat"/>
+		</exec>
+	</target>
+
+	<target name="startup.NOCAS" description="startup.NOCAS startup...">
+		<exec executable="cmd.exe">
+			<arg value="-c"/>
+			<arg value="C:\R2022x\3DSpace\win_b64\code\tomeeNoCAS\bin\startup.bat"/>
+		</exec>
+	</target>
+	
+	<!--<target name="deletejar.NOCAS" description="deletejar.NOCAS ...">
+		<exec executable="cmd.exe" dir="C:\temp">
+       		<arg line="/c delete_jar.bat"/>
+		</exec>
+	</target>-->
+</project>
